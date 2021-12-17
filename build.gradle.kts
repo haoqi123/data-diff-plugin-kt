@@ -22,6 +22,10 @@ version = properties("pluginVersion")
 // Configure project's dependencies
 repositories {
     mavenLocal()
+    maven(url = "https://maven.aliyun.com/repository/public")
+    maven(url = "https://maven-central.storage-download.googleapis.com/repos/central/data/")
+    maven(url = "https://repo.eclipse.org/content/groups/releases/")
+    maven(url = "https://www.jetbrains.com/intellij-repository/releases")
     mavenCentral()
 }
 
