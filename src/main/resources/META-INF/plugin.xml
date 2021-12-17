@@ -15,4 +15,6 @@
         <listener class="com.github.haoqi123.datadiffpluginkt.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <depends optional="true" config-file="database.xml">com.intellij.database</depends>
 </idea-plugin>
