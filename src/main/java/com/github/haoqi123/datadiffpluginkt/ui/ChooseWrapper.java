@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt;
+package com.github.haoqi123.datadiffpluginkt.ui;
 
 import com.intellij.database.psi.DbNamespaceImpl;
 import com.intellij.openapi.project.Project;
