@@ -142,8 +142,12 @@ object SqlUtil {
                     }
                 }
                 if (StringUtils.isNotEmpty(field.extra)) {
-                    builder.append(" ").append(field.extra)
+                    if (StringUtils.contains(field.extra, "CURRENT_TIMESTAMP")) {
+                        builder.append(" on update ")
+                    }
+                    builder.append(field.extra)
                 }
+
                 if (!field.isNotNull) {
                     builder.append(" NULL ")
                 } else {
