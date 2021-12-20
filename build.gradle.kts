@@ -126,4 +126,23 @@ tasks {
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
+
+
+    // Set the JVM compatibility versions
+    properties("javaVersion").let {
+        withType<JavaCompile> {
+            sourceCompatibility = it
+            targetCompatibility = it
+            options.encoding = "UTF-8"
+        }
+        withType<KotlinCompile> {
+            kotlinOptions.jvmTarget = it
+        }
+    }
+
+    withType<ProcessResources> {
+        filesMatching("**/*.properties") {
+            filter(org.apache.tools.ant.filters.EscapeUnicode::class)
+        }
+    }
 }
