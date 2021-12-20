@@ -54,6 +54,14 @@ qodana {
 }
 
 tasks {
+    runIde {
+        jvmArgs = listOf<String>("--illegal-access=warn", "--add-exports java.base/jdk.internal.vm=ALL-UNNAMED")
+    }
+
+    test{
+        ignoreFailures=true
+    }
+
     // Set the JVM compatibility versions
     properties("javaVersion").let {
         withType<JavaCompile> {
