@@ -18,7 +18,6 @@ internal class MyProjectManagerListener : ProjectManagerListener {
 
         if (!File(FILE_1).exists()) {
             try {
-                File(FILE_1).mkdir()
                 File(FILE_1).createNewFile()
                 FileUtil.writeToFile(File(FILE_1), StringUtils.EMPTY)
             } catch (e: IOException) {
@@ -28,7 +27,6 @@ internal class MyProjectManagerListener : ProjectManagerListener {
 
         if (!File(FILE_2).exists()) {
             try {
-                File(FILE_2).mkdir()
                 File(FILE_2).createNewFile()
                 FileUtil.writeToFile(File(FILE_2), StringUtils.EMPTY)
             } catch (e: IOException) {
