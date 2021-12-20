@@ -2,6 +2,7 @@ package com.github.haoqi123.datadiffpluginkt.util
 
 import com.github.haoqi123.datadiffpluginkt.bo.Field
 import com.intellij.database.dialects.mysqlbase.model.MysqlBaseTableColumn
+import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasObject
 import com.intellij.database.model.ObjectKind
 import com.intellij.database.model.basic.BasicMixinTableOrView
@@ -91,6 +92,7 @@ object SqlUtil {
         val dasChildren = dbElement!!.getDasChildren(ObjectKind.TABLE)
         for (dasChild in dasChildren) {
 //            stringJoiner.add(DatabaseDefinitionHelper.generateDefinition(dasChild, StringBuilder()))
+            stringJoiner.add(DatabaseEditorHelper.generateDefinition(dasChild, java.lang.StringBuilder()))
         }
         return stringJoiner.toString()
     }

@@ -14,7 +14,6 @@ import com.intellij.diff.DiffDialogHints
 import com.intellij.diff.DiffManager
 import com.intellij.diff.actions.BaseShowDiffAction
 import com.intellij.diff.actions.CompareFilesAction
-import com.intellij.diff.chains.DiffRequestChain
 import com.intellij.diff.requests.DiffRequest
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -93,12 +92,7 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
         )
 
 
-        val chain: DiffRequestChain = BaseShowDiffAction.createMutableChainFromFiles(
-            project,
-            lastSelection_1!!, lastSelection_2!!
-        )
-//        DiffRequestChain chain = getDiffRequestChain(e);BlankDiffWindowUtil.createBlankDiffRequestChain
-        //        DiffRequestChain chain = getDiffRequestChain(e);BlankDiffWindowUtil.createBlankDiffRequestChain
+        val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection_1!!, lastSelection_2!!)
         DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.DEFAULT)
     }
 
