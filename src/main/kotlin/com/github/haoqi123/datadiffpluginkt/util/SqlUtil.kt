@@ -47,11 +47,17 @@ object SqlUtil {
                         basicTableColumn.onUpdate else null,
                     basicTableColumn.comment
                 )
+//                if(table[dasChild.name]==null){
+//                    table[dasChild.name]=mutableMapOf(dasObject.getName() to field)
+//                }else{
+//                    val mutableMap = table[dasChild.name]
+//                    mutableMap.values
+//                }
 
                 table[dasChild.name].apply {
                     if (this == null)
                         table[dasChild.name] = mutableMapOf(dasObject.getName() to field)
-                    else dasObject.getName() to field
+                    else this[dasObject.getName()] = field
                 }
             }
         }
@@ -61,14 +67,25 @@ object SqlUtil {
     fun getResultString(result: DiffResultBo, source: PsiElement): String {
         val sj = StringJoiner("\n")
 
-        val dropField = result.dropField;
-        dropColumns(dropField, sj)
+        val dropField = result.dropField
+        dropFields(dropField, sj)
+
+        val dropTable = result.dropTable
+        dropTable.forEach {
+            sj.add("drop table $it;")
+        }
+
+        val diffField: MutableMap<String, MutableMap<String, Field>> = result.diffField
+        modifyColumns(diffField, sj)
+
+        val addTable = result.addTable
+        getNewTables(source, addTable, sj)
 
         return sj.toString()
     }
 
     //alter table gc_levy_tax_detail_excel_template drop column file_path;
-    private fun dropColumns(
+    private fun dropFields(
         table: MutableMap<String, MutableMap<String, Field>>,
         sj: StringJoiner
     ) {
@@ -82,6 +99,67 @@ object SqlUtil {
                     .append(";")
 
                 sj.add(builder)
+            }
+        }
+    }
+
+    private fun modifyColumns(table: MutableMap<String, MutableMap<String, Field>>, sj: StringJoiner) {
+
+        for (fieldMap in table.values) {
+            for (field in fieldMap.values) {
+                val builder = StringBuilder()
+                if (field.isNew) {
+                    //存在字段差异
+                    builder.append("alter table ")
+                        .append(field.tableName)
+                        .append(" modify ")
+                } else {
+                    builder.append("alter table ")
+                        .append(field.tableName)
+                        .append(" add ")
+                }
+                builder.append(field.fieldName)
+                    .append(" ")
+                    .append(field.type)
+                if (StringUtils.equals(field.default, null)
+                    && !field.isNotNull
+                ) {
+                } else {
+                    if (StringUtils.contains(field.default, "'")
+                        || StringUtils.equals(field.type, "datetime")
+                        || StringUtils.equals(field.type, "timestamp")
+                        || StringUtils.equals(field.default, null)
+                    ) {
+                        builder.append(" default ")
+                        builder.append(field.default)
+                    } else {
+                        builder.append(" default ")
+                        builder.append("'").append(field.default).append("'")
+                    }
+                }
+                if (StringUtils.isNotEmpty(field.extra)) {
+                    builder.append(" ").append(field.extra)
+                }
+                if (!field.isNotNull) {
+                    builder.append(" NULL ")
+                } else {
+                    builder.append(" NOT NULL ")
+                }
+                if (StringUtils.isNotEmpty(field.comment)) {
+                    builder.append("comment '").append(field.comment).append("'")
+                }
+
+                sj.add(builder.append(";").toString())
+            }
+        }
+    }
+
+    private fun getNewTables(psiElement: PsiElement?, newTables: MutableList<String>, sj: StringJoiner) {
+        val dbElement = ObjectUtils.tryCast(psiElement, DbElement::class.java)
+        val dasChildren = dbElement!!.getDasChildren(ObjectKind.TABLE)
+        for (dasChild in dasChildren) {
+            if (newTables.contains(dasChild.name)) {
+                sj.add(DatabaseEditorHelper.generateDefinition(dasChild, java.lang.StringBuilder()))
             }
         }
     }

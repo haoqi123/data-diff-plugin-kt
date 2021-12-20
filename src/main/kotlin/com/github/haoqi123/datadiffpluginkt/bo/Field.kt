@@ -11,7 +11,7 @@ data class Field(
     var default: String?,
     var extra: String?,
     var comment: String?,
-    val isNew: Boolean = false
+    var isNew: Boolean = false
 ) : Comparable<Field> {
 
     override fun compareTo(other: Field): Int {

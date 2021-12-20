@@ -12,11 +12,13 @@ object DataDiffUtil {
         val dropTable = mutableListOf<String>()
         val dropField = mutableMapOf<String, MutableMap<String, Field>>()
         val diffField = mutableMapOf<String, MutableMap<String, Field>>()
-        for (table in source) {
+        val iterator = source.iterator()
+        while (iterator.hasNext()) {
+            val table = iterator.next()
             //是否是新表
             if (!target.containsKey(table.key)) {
                 addTable.add(table.key);
-                source.remove(table.key)
+                iterator.remove()
                 continue
             }
             //获取不同的字段和删除的字段
@@ -32,27 +34,46 @@ object DataDiffUtil {
         source: MutableMap<String, Field>,
         target: MutableMap<String, Field>,
         diffFieldMap: MutableMap<String, MutableMap<String, Field>>,
-        dropField: MutableMap<String, MutableMap<String, Field>>
+        dropFieldMap: MutableMap<String, MutableMap<String, Field>>
     ) {
-
-        for (field in source.values) {
+        val iterator = source.values.iterator()
+        while (iterator.hasNext()) {
+            val field = iterator.next()
             //新字段
             if (!target.containsKey(field.fieldName)) {
-                diffFieldMap.plus(field.tableName to field)
-                source.remove(field.fieldName)
+                field.isNew = true
+                val mutableMap = diffFieldMap.get(field.tableName)
+                if (mutableMap == null) {
+                    diffFieldMap[field.tableName] = mutableMapOf(field.fieldName to field)
+                } else {
+                    mutableMap.put(field.fieldName, field)
+                }
+
+                iterator.remove()
                 continue
             }
             //不同的字段
             if (field.compareTo(target[field.fieldName]!!) < 1) {
-                diffFieldMap.plus(field.tableName to field)
-                source.remove(field.fieldName)
+                val mutableMap = diffFieldMap.get(field.tableName)
+                if (mutableMap == null) {
+                    diffFieldMap[field.tableName] = mutableMapOf(field.fieldName to field)
+                } else {
+                    mutableMap.put(field.fieldName, field)
+                }
+
+                iterator.remove()
             }
         }
 
         for (field in target.values) {
-            //删除字段
+            //删除的字段
             if (!source.containsKey(field.fieldName)) {
-                dropField.plus(field.tableName to field)
+                val mutableMap = dropFieldMap.get(field.tableName)
+                if (mutableMap == null) {
+                    dropFieldMap[field.tableName] = mutableMapOf(field.fieldName to field)
+                } else {
+                    mutableMap.put(field.fieldName, field)
+                }
                 continue
             }
         }

@@ -28,8 +28,8 @@ import java.io.IOException
 
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
-    val FILE_1 = "/file1.sql"
-    val FILE_2 = "/file2.sql"
+    private val FILE_1 = "/file1.sql"
+    private val FILE_2 = "/file2.sql"
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
