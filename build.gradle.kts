@@ -55,7 +55,9 @@ qodana {
 
 tasks {
     runIde {
-        jvmArgs = listOf<String>("--illegal-access=warn", "--add-exports java.base/jdk.internal.vm=ALL-UNNAMED")
+        // "--add-exports java.base/jdk.internal.vm=ALL-UNNAMED"
+        jvmArgs = listOf<String>("--illegal-access=warn")
+        autoReloadPlugins.set(false)
     }
 
     test{

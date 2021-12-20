@@ -29,8 +29,8 @@ import com.intellij.psi.PsiElement
 import java.io.File
 import java.io.IOException
 
-val FILE_1: String = FileUtil.getTempDirectory().concatWithSpace("/file1_source.sql")!!
-val FILE_2 = FileUtil.getTempDirectory().concatWithSpace("/file2_target.sql")!!
+val FILE_1: String = FileUtil.getTempDirectory().concatWithSpace(File.separator + "file1_source.sql")!!
+val FILE_2 = FileUtil.getTempDirectory().concatWithSpace(File.separator + "file2_target.sql")!!
 
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
@@ -85,7 +85,7 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
         val file = DatabaseElementVirtualFileImpl.findFile(dbElement, false)!!
         file.isBusy = false
-        file.setContent(resultString, hashCode(dbElement))
+        file.content = resultString
 
         DatabaseEditorHelper.openConsoleForFile(
             dbElement.project,
