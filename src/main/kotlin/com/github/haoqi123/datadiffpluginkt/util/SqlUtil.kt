@@ -67,17 +67,21 @@ object SqlUtil {
     fun getResultString(result: DiffResultBo, source: PsiElement): String {
         val sj = StringJoiner("\n")
 
+        sj.add("# delete Fields *;")
         val dropField = result.dropField
         dropFields(dropField, sj)
 
+        sj.add("# drop table *;")
         val dropTable = result.dropTable
         dropTable.forEach {
             sj.add("drop table $it;")
         }
 
+        sj.add("# diff Fields *;")
         val diffField: MutableMap<String, MutableMap<String, Field>> = result.diffField
         modifyColumns(diffField, sj)
 
+        sj.add("# new Tables *;")
         val addTable = result.addTable
         getNewTables(source, addTable, sj)
 
@@ -108,7 +112,7 @@ object SqlUtil {
         for (fieldMap in table.values) {
             for (field in fieldMap.values) {
                 val builder = StringBuilder()
-                if (field.isNew) {
+                if (!field.isNew) {
                     //存在字段差异
                     builder.append("alter table ")
                         .append(field.tableName)

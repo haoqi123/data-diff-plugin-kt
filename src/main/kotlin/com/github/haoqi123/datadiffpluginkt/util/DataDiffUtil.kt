@@ -60,8 +60,6 @@ object DataDiffUtil {
                 } else {
                     mutableMap.put(field.fieldName, field)
                 }
-
-                iterator.remove()
             }
         }
 
