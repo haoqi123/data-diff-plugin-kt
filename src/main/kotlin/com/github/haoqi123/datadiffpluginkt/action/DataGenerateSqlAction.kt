@@ -9,6 +9,7 @@ import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasNamespace
 import com.intellij.database.psi.DbElement
 import com.intellij.database.psi.DbNamespaceImpl
+import com.intellij.database.script.generator.concatWithSpace
 import com.intellij.database.util.DasUtil
 import com.intellij.database.util.DbImplUtil
 import com.intellij.database.vfs.DatabaseElementVirtualFileImpl
@@ -28,14 +29,14 @@ import com.intellij.psi.PsiElement
 import java.io.File
 import java.io.IOException
 
-val FILE_1 = "/file1_source.sql"
-val FILE_2 = "/file2_target.sql"
+val FILE_1: String = FileUtil.getTempDirectory().concatWithSpace("/file1_source.sql")!!
+val FILE_2 = FileUtil.getTempDirectory().concatWithSpace("/file2_target.sql")!!
 
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
 
     override fun actionPerformed(e: AnActionEvent) {
-        val project = e.project
+        val project = e.project!!
         val data = e.getData(LangDataKeys.PSI_ELEMENT_ARRAY)
         if (data == null) {
             notifyError(project, NotificationType.ERROR, "Did Not Choose Or Choose Wrong")
@@ -68,24 +69,22 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
         val sourceTableText = SqlUtil.getTableText(psi[0])
         val targetTableText = SqlUtil.getTableText(psi[1])
-        val filePatch1 = FileUtil.getTempDirectory() + FILE_1
-        val filePatch2 = FileUtil.getTempDirectory() + FILE_2
-        val lastSelection_1 = LocalFileSystem.getInstance().findFileByPath(filePatch1)
-        val lastSelection_2 = LocalFileSystem.getInstance().findFileByPath(filePatch2)
+        val lastSelection1 = LocalFileSystem.getInstance().findFileByPath(FILE_1)!!
+        val lastSelection2 = LocalFileSystem.getInstance().findFileByPath(FILE_2)!!
         try {
-            FileUtil.writeToFile(File(filePatch1), sourceTableText)
+            FileUtil.writeToFile(File(FILE_1), sourceTableText)
         } catch (ignored: IOException) {
         }
 
         try {
-            FileUtil.writeToFile(File(filePatch2), targetTableText)
+            FileUtil.writeToFile(File(FILE_2), targetTableText)
         } catch (ignored: IOException) {
         }
 
         val dbElement = psi[1] as DbElement
 
-        val file = DatabaseElementVirtualFileImpl.findFile(dbElement, false)
-        file!!.isBusy = false
+        val file = DatabaseElementVirtualFileImpl.findFile(dbElement, false)!!
+        file.isBusy = false
         file.setContent(resultString, hashCode(dbElement))
 
         DatabaseEditorHelper.openConsoleForFile(
@@ -94,7 +93,7 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
             DasUtil.getParentOfClass(dbElement, DasNamespace::class.java, false), file
         )
 
-        val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection_1!!, lastSelection_2!!)
+        val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection1, lastSelection2)
         DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.DEFAULT)
     }
 

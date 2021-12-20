@@ -4,9 +4,9 @@ import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.Project
 
-fun notifyError(project: Project?, notificationType: NotificationType?, content: String?) {
+fun notifyError(project: Project, notificationType: NotificationType, content: String) {
     NotificationGroupManager.getInstance()
         .getNotificationGroup("Custom Notification Group")
-        .createNotification(content!!, notificationType!!)
+        .createNotification(content, notificationType)
         .notify(project)
 }
