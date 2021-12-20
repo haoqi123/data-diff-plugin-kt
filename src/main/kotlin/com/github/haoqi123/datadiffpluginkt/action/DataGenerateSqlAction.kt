@@ -9,7 +9,6 @@ import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasNamespace
 import com.intellij.database.psi.DbElement
 import com.intellij.database.psi.DbNamespaceImpl
-import com.intellij.database.script.generator.concatWithSpace
 import com.intellij.database.util.DasUtil
 import com.intellij.database.util.DbImplUtil
 import com.intellij.database.vfs.DatabaseElementVirtualFileImpl
@@ -29,8 +28,8 @@ import com.intellij.psi.PsiElement
 import java.io.File
 import java.io.IOException
 
-val FILE_1: String = FileUtil.getTempDirectory().concatWithSpace(File.separator + "file1_source.sql")!!
-val FILE_2 = FileUtil.getTempDirectory().concatWithSpace(File.separator + "file2_target.sql")!!
+val FILE_1: String = FileUtil.getTempDirectory() + File.separator + "file1_source.sql"
+val FILE_2 = FileUtil.getTempDirectory() + File.separator + "file2_target.sql"
 
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
