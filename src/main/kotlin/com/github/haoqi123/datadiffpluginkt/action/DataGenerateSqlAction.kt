@@ -3,6 +3,7 @@ package com.github.haoqi123.datadiffpluginkt.action
 import com.github.haoqi123.datadiffpluginkt.eventlog.notifyError
 import com.github.haoqi123.datadiffpluginkt.ui.ChooseWrapper
 import com.github.haoqi123.datadiffpluginkt.util.DataDiffUtil
+import com.github.haoqi123.datadiffpluginkt.util.PluginExistsUtils
 import com.github.haoqi123.datadiffpluginkt.util.SqlUtil
 import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasNamespace
@@ -27,10 +28,11 @@ import com.intellij.psi.PsiElement
 import java.io.File
 import java.io.IOException
 
+val FILE_1 = "/file1_source.sql"
+val FILE_2 = "/file2_target.sql"
+
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
-    private val FILE_1 = "/file1_source.sql"
-    private val FILE_2 = "/file2_target.sql"
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
@@ -106,5 +108,9 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
     private fun hashCode(element: DbElement): Int {
         return DbImplUtil.getMaybeBasicElement(element).hashCode()
+    }
+
+    override fun update(e: AnActionEvent) {
+        PluginExistsUtils.existsDbTools(e)
     }
 }
