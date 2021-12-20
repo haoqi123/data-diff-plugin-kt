@@ -9,6 +9,7 @@ import com.intellij.database.model.DasNamespace
 import com.intellij.database.psi.DbElement
 import com.intellij.database.psi.DbNamespaceImpl
 import com.intellij.database.util.DasUtil
+import com.intellij.database.util.DbImplUtil
 import com.intellij.database.vfs.DatabaseElementVirtualFileImpl
 import com.intellij.diff.DiffDialogHints
 import com.intellij.diff.DiffManager
@@ -28,8 +29,8 @@ import java.io.IOException
 
 class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
 
-    private val FILE_1 = "/file1.sql"
-    private val FILE_2 = "/file2.sql"
+    private val FILE_1 = "/file1_source.sql"
+    private val FILE_2 = "/file2_target.sql"
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
@@ -91,11 +92,9 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
             DasUtil.getParentOfClass(dbElement, DasNamespace::class.java, false), file
         )
 
-
         val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection_1!!, lastSelection_2!!)
         DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.DEFAULT)
     }
-
 
     override fun isAvailable(e: AnActionEvent): Boolean {
         return false
@@ -105,18 +104,7 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
         return e.getData(DIFF_REQUEST)
     }
 
-
     private fun hashCode(element: DbElement): Int {
-//        val e: BasicElement = DbImplUtilCore.getMaybeBasicElement(element)
-//        return if (e == null) 0 else ModelLightCopierUtils.hashCode(e)
-        return 0
-    }
-
-    override fun update(e: AnActionEvent) {
-//        PluginExistsUtils.existsDbTools(e)
-    }
-
-    override fun isDumbAware(): Boolean {
-        return super.isDumbAware()
+        return DbImplUtil.getMaybeBasicElement(element).hashCode()
     }
 }
