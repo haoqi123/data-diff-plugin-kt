@@ -18,9 +18,6 @@ import java.util.*
  * @Created by haoqi
  */
 object SqlUtil {
-    const val SOURCE = "source"
-    const val TARGET = "targets"
-
     /**
      * 获取数据集
      */
