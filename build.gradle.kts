@@ -29,6 +29,16 @@ repositories {
     mavenCentral()
 }
 
+//kotlin {
+//    experimental {
+//        coroutines = org.jetbrains.kotlin.gradle.dsl.Coroutines.ENABLE
+//    }
+//}
+
+//dependencies{
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC3")
+//}
+
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
@@ -60,8 +70,8 @@ tasks {
         autoReloadPlugins.set(false)
     }
 
-    test{
-        ignoreFailures=true
+    test {
+        ignoreFailures = true
     }
 
     // Set the JVM compatibility versions

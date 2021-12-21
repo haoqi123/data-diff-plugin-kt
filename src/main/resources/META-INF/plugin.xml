@@ -9,7 +9,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.haoqi123.datadiffpluginkt.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.haoqi123.datadiffpluginkt.services.MyProjectService"/>
+
         <notificationGroup id="Custom Notification Group" displayType="BALLOON"/>
+        <notification.group groupId="Custom Notification Group"/>
     </extensions>
 
     <applicationListeners>

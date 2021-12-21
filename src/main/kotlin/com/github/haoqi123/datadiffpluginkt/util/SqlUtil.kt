@@ -164,7 +164,7 @@ object SqlUtil {
         val dasChildren = dbElement!!.getDasChildren(ObjectKind.TABLE)
         for (dasChild in dasChildren) {
             if (newTables.contains(dasChild.name)) {
-                sj.add(DatabaseEditorHelper.generateDefinition(dasChild, java.lang.StringBuilder()))
+                sj.add(DatabaseEditorHelper.loadOrGenerateDefinition(dasChild, java.lang.StringBuilder()))
             }
         }
     }
@@ -175,7 +175,7 @@ object SqlUtil {
         val dasChildren = dbElement!!.getDasChildren(ObjectKind.TABLE)
         for (dasChild in dasChildren) {
 //            stringJoiner.add(DatabaseDefinitionHelper.generateDefinition(dasChild, StringBuilder()))
-            stringJoiner.add(DatabaseEditorHelper.generateDefinition(dasChild, java.lang.StringBuilder()))
+            stringJoiner.add(DatabaseEditorHelper.loadOrGenerateDefinition(dasChild, java.lang.StringBuilder()))
         }
         return stringJoiner.toString()
     }
