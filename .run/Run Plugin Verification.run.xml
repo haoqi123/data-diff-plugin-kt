@@ -9,11 +9,11 @@
       <option name="taskDescriptions">
         <list />
       </option>
-      <option name="taskNames">
-        <list>
-          <option value="runPluginVerifier" />
-        </list>
-      </option>
+<!--      <option name="taskNames">-->
+<!--        <list>-->
+<!--          <option value="runPluginVerifier" />-->
+<!--        </list>-->
+<!--      </option>-->
       <option name="vmOptions" value="" />
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
