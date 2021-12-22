@@ -55,8 +55,6 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
             return
         }
         val psi: Array<PsiElement> = chooseWrapper.getPsi()
-        //打开对比页签
-        consoleDiff(psi, project)
 
         val source = psi[0] as DbNamespaceImpl
         val target = psi[1] as DbNamespaceImpl
@@ -66,6 +64,9 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
         val resultString = SqlUtil.getResultString(diffResult, source)
         //打开对比结果页签
         DiffConsoleUtil.console(psi[1] as DbElement, resultString)
+
+        //打开对比页签
+//        consoleDiff(psi, project)
     }
 
     override fun isAvailable(e: AnActionEvent): Boolean {
