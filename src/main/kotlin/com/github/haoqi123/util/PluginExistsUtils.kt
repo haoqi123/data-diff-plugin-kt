@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt.util
+package com.github.haoqi123.util
 
 import com.intellij.database.psi.DbNamespaceImpl
 import com.intellij.openapi.actionSystem.AnActionEvent

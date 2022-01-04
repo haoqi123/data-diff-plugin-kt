@@ -1,6 +1,6 @@
-package com.github.haoqi123.datadiffpluginkt.services
+package com.github.haoqi123.services
 
-import com.github.haoqi123.datadiffpluginkt.MyBundle
+import com.github.haoqi123.MyBundle
 
 class MyApplicationService {
 

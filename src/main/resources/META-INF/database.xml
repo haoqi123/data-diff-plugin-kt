@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <actions>
-        <action id="DataGenerateSqlAction" class="com.github.haoqi123.datadiffpluginkt.action.DataGenerateSqlAction"
-                text="DataGenerateSqlAction">
+        <action id="DataGenerateSqlAction" class="com.github.haoqi123.action.DataGenerateSqlAction"
+                text="Diff-GenerateSql">
             <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
         </action>
     </actions>

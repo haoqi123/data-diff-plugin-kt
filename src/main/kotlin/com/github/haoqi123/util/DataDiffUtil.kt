@@ -1,6 +1,6 @@
-package com.github.haoqi123.datadiffpluginkt.util
+package com.github.haoqi123.util
 
-import com.github.haoqi123.datadiffpluginkt.bo.Field
+import com.github.haoqi123.bo.Field
 
 object DataDiffUtil {
 

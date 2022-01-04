@@ -1,29 +1,22 @@
-package com.github.haoqi123.datadiffpluginkt.action
+package com.github.haoqi123.action
 
-import com.github.haoqi123.datadiffpluginkt.eventlog.notifyError
-import com.github.haoqi123.datadiffpluginkt.ui.ChooseWrapper
-import com.github.haoqi123.datadiffpluginkt.util.DataDiffUtil
-import com.github.haoqi123.datadiffpluginkt.util.DiffConsoleUtil
-import com.github.haoqi123.datadiffpluginkt.util.PluginExistsUtils
-import com.github.haoqi123.datadiffpluginkt.util.SqlUtil
+import com.github.haoqi123.eventlog.notifyError
+import com.github.haoqi123.ui.ChooseWrapper
+import com.github.haoqi123.util.DataDiffUtil
+import com.github.haoqi123.util.DiffConsoleUtil
+import com.github.haoqi123.util.PluginExistsUtils
+import com.github.haoqi123.util.SqlUtil
 import com.intellij.database.psi.DbElement
 import com.intellij.database.psi.DbNamespaceImpl
-import com.intellij.database.util.DbImplUtil
-import com.intellij.diff.DiffDialogHints
-import com.intellij.diff.DiffManager
-import com.intellij.diff.actions.BaseShowDiffAction
 import com.intellij.diff.actions.CompareFilesAction
 import com.intellij.diff.requests.DiffRequest
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.project.DumbAware
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.util.io.FileUtil
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiElement
 import java.io.File
-import java.io.IOException
 
 val FILE_1: String = FileUtil.getTempDirectory() + File.separator + "file1_source.sql"
 val FILE_2 = FileUtil.getTempDirectory() + File.separator + "file2_target.sql"
@@ -77,30 +70,26 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
         return e.getData(DIFF_REQUEST)
     }
 
-    private fun hashCode(element: DbElement): Int {
-        return DbImplUtil.getMaybeBasicElement(element).hashCode()
-    }
-
     override fun update(e: AnActionEvent) {
         PluginExistsUtils.existsDbTools(e)
     }
-
-    fun consoleDiff(psi: Array<PsiElement>, project: Project) {
-        val sourceTableText = SqlUtil.getTableText(psi[0])
-        val targetTableText = SqlUtil.getTableText(psi[1])
-        val lastSelection1 = LocalFileSystem.getInstance().findFileByPath(FILE_1)!!
-        val lastSelection2 = LocalFileSystem.getInstance().findFileByPath(FILE_2)!!
-        try {
-            FileUtil.writeToFile(File(FILE_1), sourceTableText)
-        } catch (ignored: IOException) {
-        }
-
-        try {
-            FileUtil.writeToFile(File(FILE_2), targetTableText)
-        } catch (ignored: IOException) {
-        }
-
-        val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection1, lastSelection2)
-        DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.DEFAULT)
-    }
+//
+//    fun consoleDiff(psi: Array<PsiElement>, project: Project) {
+//        val sourceTableText = SqlUtil.getTableText(psi[0])
+//        val targetTableText = SqlUtil.getTableText(psi[1])
+//        val lastSelection1 = LocalFileSystem.getInstance().findFileByPath(FILE_1)!!
+//        val lastSelection2 = LocalFileSystem.getInstance().findFileByPath(FILE_2)!!
+//        try {
+//            FileUtil.writeToFile(File(FILE_1), sourceTableText)
+//        } catch (ignored: IOException) {
+//        }
+//
+//        try {
+//            FileUtil.writeToFile(File(FILE_2), targetTableText)
+//        } catch (ignored: IOException) {
+//        }
+//
+//        val chain = BaseShowDiffAction.createMutableChainFromFiles(project, lastSelection1, lastSelection2)
+//        DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.DEFAULT)
+//    }
 }

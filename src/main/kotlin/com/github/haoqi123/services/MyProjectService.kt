@@ -1,7 +1,7 @@
-package com.github.haoqi123.datadiffpluginkt.services
+package com.github.haoqi123.services
 
 import com.intellij.openapi.project.Project
-import com.github.haoqi123.datadiffpluginkt.MyBundle
+import com.github.haoqi123.MyBundle
 
 class MyProjectService(project: Project) {
 

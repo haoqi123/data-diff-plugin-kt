@@ -1,8 +1,8 @@
-package com.github.haoqi123.datadiffpluginkt.listeners
+package com.github.haoqi123.listeners
 
-import com.github.haoqi123.datadiffpluginkt.action.FILE_1
-import com.github.haoqi123.datadiffpluginkt.action.FILE_2
-import com.github.haoqi123.datadiffpluginkt.services.MyProjectService
+import com.github.haoqi123.action.FILE_1
+import com.github.haoqi123.action.FILE_2
+import com.github.haoqi123.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener

@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt
+package com.github.haoqi123
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

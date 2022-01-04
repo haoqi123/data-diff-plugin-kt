@@ -1,21 +1,21 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.haoqi123.datadiffpluginkt</id>
-    <name>data-diff-plugin-kt</name>
+    <id>17961</id>
+    <name>Diff-GenerateSql</name>
     <vendor>haoqi123</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.haoqi123.datadiffpluginkt.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.haoqi123.datadiffpluginkt.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.github.haoqi123.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.haoqi123.services.MyProjectService"/>
 
         <notificationGroup id="Custom Notification Group" displayType="BALLOON"/>
         <notification.group groupId="Custom Notification Group"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.haoqi123.datadiffpluginkt.listeners.MyProjectManagerListener"
+        <listener class="com.github.haoqi123.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 

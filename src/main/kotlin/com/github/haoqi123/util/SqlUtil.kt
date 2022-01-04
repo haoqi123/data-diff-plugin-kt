@@ -1,6 +1,6 @@
-package com.github.haoqi123.datadiffpluginkt.util
+package com.github.haoqi123.util
 
-import com.github.haoqi123.datadiffpluginkt.bo.Field
+import com.github.haoqi123.bo.Field
 import com.intellij.database.dialects.mysqlbase.model.MysqlBaseTableColumn
 import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasObject
@@ -125,6 +125,7 @@ object SqlUtil {
                 if (StringUtils.equals(field.default, null)
                     && !field.isNotNull
                 ) {
+                    //nothing to do
                 } else {
                     if (StringUtils.contains(field.default, "'")
                         || StringUtils.equals(field.type, "datetime")

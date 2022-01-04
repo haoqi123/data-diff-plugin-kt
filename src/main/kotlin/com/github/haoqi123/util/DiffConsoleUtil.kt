@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt.util
+package com.github.haoqi123.util
 
 import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasNamespace

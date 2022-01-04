@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt.bo
+package com.github.haoqi123.bo
 
 import org.apache.commons.lang3.StringUtils
 

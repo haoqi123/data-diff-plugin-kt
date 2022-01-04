@@ -1,4 +1,4 @@
-package com.github.haoqi123.datadiffpluginkt.eventlog
+package com.github.haoqi123.eventlog
 
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
