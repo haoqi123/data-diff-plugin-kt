@@ -2,12 +2,6 @@
 
 # data-diff-plugin-kt Changelog
 
-## [Unreleased]
-### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
-
-
-
 ## v2.0 (2022/01/05)
 - Adjust the framework, update to 2.0, support to 2020.3-*
 
@@ -18,3 +12,8 @@
 - Release: 1.2 update description and update build.gradle
 - Release: 1.1 add description and update build.gradle
 - Release: 1.0 add description
+
+
+## [Unreleased]
+### Added
+- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
