@@ -1,6 +1,8 @@
-import org.jetbrains.changelog.date
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 fun properties(key: String) = project.findProperty(key).toString()
 
@@ -52,11 +54,15 @@ intellij {
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
-    version.set(properties("pluginVersion"))
+    val date = LocalDate.now(ZoneId.of("Asia/Shanghai"))
+    val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+    version.set(properties("pluginVersion"))
     path.set("${project.projectDir}/CHANGELOG.md")
-    header.set(provider { "[${version.get()}] - ${date()}" })
-    itemPrefix.set("-")
+    header.set(provider { "v${version.get()} (${date.format(formatter)})" })
+    headerParserRegex.set(Regex("v\\d(\\.\\d+)+"))
+
+//    itemPrefix.set("-")
     keepUnreleasedSection.set(true)
     unreleasedTerm.set("[Unreleased]")
     groups.set(listOf("Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"))
@@ -116,9 +122,10 @@ tasks {
 
         // Get the latest available change notes from the changelog file
         changeNotes.set(provider {
+            val changelogUrl = "https://github.com/haoqi123/data-diff-plugin-kt/blob/main/CHANGELOG.md"
             changelog.run {
-                getOrNull(properties("pluginVersion")) ?: getLatest()
-            }.toHTML()
+                getOrNull("v" + properties("pluginVersion")) ?: getLatest()
+            }.toHTML() + "<br/><a href=\"${changelogUrl}\"><b>Full Changelog History</b></a>"
         })
     }
 
