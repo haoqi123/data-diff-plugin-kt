@@ -4,6 +4,8 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
+![img.png](img.png)
+
 <!-- Plugin description -->
 
 This plugin can help you quickly get the difference in the table structure between the two databases,

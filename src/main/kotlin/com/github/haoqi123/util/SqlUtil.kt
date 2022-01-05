@@ -23,7 +23,7 @@ object SqlUtil {
      */
     fun getData(source: DbNamespaceImpl): MutableMap<String, MutableMap<String, Field>> {
         val table = mutableMapOf<String, MutableMap<String, Field>>()
-        val delegate: DasObject = source.getDelegate()
+        val delegate: DasObject = source.delegate
         for (dasChild in delegate.getDasChildren(ObjectKind.TABLE)) {
             val fieldNames: MutableList<String> = ArrayList()
             val primaryKey = (dasChild as BasicMixinTableOrView).primaryKey
@@ -90,9 +90,9 @@ object SqlUtil {
         table: MutableMap<String, MutableMap<String, Field>>,
         sj: StringJoiner
     ) {
+        val builder = StringBuilder()
         for (fields in table.values) {
             for (field in fields) {
-                val builder = StringBuilder()
                 builder.append("alter table ")
                     .append(field.value.tableName)
                     .append(" drop column ")
@@ -100,15 +100,17 @@ object SqlUtil {
                     .append(";")
 
                 sj.add(builder)
+
+                builder.clear()
             }
         }
     }
 
     private fun modifyColumns(table: MutableMap<String, MutableMap<String, Field>>, sj: StringJoiner) {
+        val builder = StringBuilder()
 
         for (fieldMap in table.values) {
             for (field in fieldMap.values) {
-                val builder = StringBuilder()
                 if (!field.isNew) {
                     //存在字段差异
                     builder.append("alter table ")
@@ -156,6 +158,8 @@ object SqlUtil {
                 }
 
                 sj.add(builder.append(";").toString())
+
+                builder.clear()
             }
         }
     }
@@ -163,10 +167,12 @@ object SqlUtil {
     private fun getNewTables(psiElement: PsiElement?, newTables: MutableList<String>, sj: StringJoiner) {
         val dbElement = ObjectUtils.tryCast(psiElement, DbElement::class.java)
         val dasChildren = dbElement!!.getDasChildren(ObjectKind.TABLE)
+        val stringBuilder = StringBuilder()
         for (dasChild in dasChildren) {
             if (newTables.contains(dasChild.name)) {
-                sj.add(DatabaseEditorHelper.loadOrGenerateDefinition(dasChild, java.lang.StringBuilder()))
+                sj.add(DatabaseEditorHelper.loadOrGenerateDefinition(dasChild, stringBuilder).append(";"))
             }
+            stringBuilder.clear()
         }
     }
 

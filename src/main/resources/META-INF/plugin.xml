@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>17961</id>
     <name>Diff-GenerateSql</name>
-    <vendor>haoqi123</vendor>
+    <vendor>wanglufei</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 

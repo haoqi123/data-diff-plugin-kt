@@ -44,19 +44,20 @@ class DataGenerateSqlAction : CompareFilesAction(), DumbAware {
         val chooseWrapper = ChooseWrapper(project)
         chooseWrapper.setData(data)
         chooseWrapper.show()
-        if (chooseWrapper.getExitCode() != Messages.YES) {
+        if (chooseWrapper.exitCode != Messages.YES) {
             return
         }
-        val psi: Array<PsiElement> = chooseWrapper.getPsi()
+        val psi: Array<PsiElement> = chooseWrapper.psi
 
-        val source = psi[0] as DbNamespaceImpl
-        val target = psi[1] as DbNamespaceImpl
-        val sourceData = SqlUtil.getData(source)
-        val targetData = SqlUtil.getData(target)
-        val diffResult = DataDiffUtil.getDiffResult(sourceData, targetData)
-        val resultString = SqlUtil.getResultString(diffResult, source)
         //打开对比结果页签
-        DiffConsoleUtil.console(psi[1] as DbElement, resultString)
+        DiffConsoleUtil.console(
+            psi[1] as DbElement, SqlUtil.getResultString(
+                DataDiffUtil.getDiffResult(
+                    SqlUtil.getData(psi[0] as DbNamespaceImpl),
+                    SqlUtil.getData(psi[1] as DbNamespaceImpl)
+                ), psi[0] as DbNamespaceImpl
+            )
+        )
 
         //打开对比页签
 //        consoleDiff(psi, project)
