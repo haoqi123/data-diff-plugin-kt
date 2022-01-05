@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>17961</id>
+    <id>org.hq.data_plugins</id>
     <name>Diff-GenerateSql</name>
     <vendor>wanglufei</vendor>
 
