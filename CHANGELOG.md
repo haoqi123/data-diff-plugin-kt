@@ -2,8 +2,8 @@
 
 # data-diff-plugin-kt Changelog
 
-## v2.0 (2022/01/05)
-- Adjust the framework, update to 2.0, support to 2020.3-*
+## v1.5 (2022/01/05)
+- Adjust the framework, update to 1.5, support to 2020.3-*
 
 ## v1.4 (2021/12/15)
 - Previous versions
