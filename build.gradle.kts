@@ -122,7 +122,7 @@ tasks {
 
         // Get the latest available change notes from the changelog file
         changeNotes.set(provider {
-            val changelogUrl = "https://github.com/haoqi123/data-diff-plugin-kt/blob/main/CHANGELOG.md"
+            val changelogUrl = "https://github.com/haoqi123/data-diff-plugin-kt/blob/release-203/CHANGELOG.md"
             changelog.run {
                 getOrNull("v" + properties("pluginVersion")) ?: getLatest()
             }.toHTML() + "<br/><a href=\"${changelogUrl}\"><b>Full Changelog History</b></a>"
