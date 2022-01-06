@@ -11,7 +11,6 @@
         <projectService serviceImplementation="com.github.haoqi123.services.MyProjectService"/>
 
         <notificationGroup id="Custom Notification Group" displayType="BALLOON"/>
-        <notification.group groupId="Custom Notification Group"/>
     </extensions>
 
     <applicationListeners>
