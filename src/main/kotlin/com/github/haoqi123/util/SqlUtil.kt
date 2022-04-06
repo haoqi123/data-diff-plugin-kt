@@ -5,8 +5,8 @@ import com.intellij.database.dialects.mysqlbase.model.MysqlBaseTableColumn
 import com.intellij.database.editor.DatabaseEditorHelper
 import com.intellij.database.model.DasObject
 import com.intellij.database.model.ObjectKind
-import com.intellij.database.model.basic.BasicMixinTableOrView
 import com.intellij.database.model.basic.BasicTableColumn
+import com.intellij.database.model.basic.BasicTableOrView
 import com.intellij.database.psi.DbElement
 import com.intellij.database.psi.DbNamespaceImpl
 import com.intellij.psi.PsiElement
@@ -26,7 +26,7 @@ object SqlUtil {
         val delegate: DasObject = source.delegate
         for (dasChild in delegate.getDasChildren(ObjectKind.TABLE)) {
             val fieldNames: MutableList<String> = ArrayList()
-            val primaryKey = (dasChild as BasicMixinTableOrView).primaryKey
+            val primaryKey = (dasChild as BasicTableOrView).primaryKey
             if (primaryKey != null) {
                 fieldNames.addAll(primaryKey.colNames)
             }
