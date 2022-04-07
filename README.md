@@ -1,8 +1,8 @@
 # diff-generatesql
 
 ![Build](https://github.com/haoqi123/data-diff-plugin-kt/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/17961-diff-generatesql)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/17961-diff-generatesql.svg)](https://plugins.jetbrains.com/plugin/17961-diff-generatesql)
 
 ![img.png](img.png)
 
