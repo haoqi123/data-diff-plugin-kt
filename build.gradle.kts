@@ -67,10 +67,12 @@ changelog {
 //}
 
 tasks {
-    runIde {
-        // "--add-exports java.base/jdk.internal.vm=ALL-UNNAMED"
-        jvmArgs = listOf<String>("--illegal-access=warn")
-        autoReloadPlugins.set(false)
+//    runIde {
+//        jvmArgs = listOf("--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED")
+//    }
+
+    buildSearchableOptions {
+        jvmArgs = listOf("--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED")
     }
 
     test {
