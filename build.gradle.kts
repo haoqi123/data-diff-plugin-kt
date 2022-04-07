@@ -8,15 +8,15 @@ fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
     // Java support
-//    id("java")
+    id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.6.0"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.3.0"
+    id("org.jetbrains.intellij") version "1.4.0"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "0.1.13"
+//    id("org.jetbrains.qodana") version "0.1.13"
 }
 
 group = properties("pluginGroup")
@@ -25,22 +25,8 @@ version = properties("pluginVersion")
 // Configure project's dependencies
 repositories {
     mavenLocal()
-    maven(url = "https://maven.aliyun.com/repository/public")
-    maven(url = "https://maven-central.storage-download.googleapis.com/repos/central/data/")
-    maven(url = "https://repo.eclipse.org/content/groups/releases/")
-    maven(url = "https://www.jetbrains.com/intellij-repository/releases")
     mavenCentral()
 }
-
-//kotlin {
-//    experimental {
-//        coroutines = org.jetbrains.kotlin.gradle.dsl.Coroutines.ENABLE
-//    }
-//}
-
-//dependencies{
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC3")
-//}
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
@@ -69,12 +55,12 @@ changelog {
 }
 
 // Configure Gradle Qodana Plugin - read more: https://github.com/JetBrains/gradle-qodana-plugin
-qodana {
-    cachePath.set(projectDir.resolve(".qodana").canonicalPath)
-    reportPath.set(projectDir.resolve("build/reports/inspections").canonicalPath)
-    saveReport.set(true)
-    showReport.set(System.getenv("QODANA_SHOW_REPORT")?.toBoolean() ?: false)
-}
+//qodana {
+//    cachePath.set(projectDir.resolve(".qodana").canonicalPath)
+//    reportPath.set(projectDir.resolve("build/reports/inspections").canonicalPath)
+//    saveReport.set(true)
+//    showReport.set(System.getenv("QODANA_SHOW_REPORT")?.toBoolean() ?: false)
+//}
 
 tasks {
     runIde {

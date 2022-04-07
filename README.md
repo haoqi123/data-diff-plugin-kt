@@ -28,10 +28,10 @@ PS: At this stage,Only Supports MYSQL Database
 ## Installation
 
 - Using IDE built-in plugin system:
-  
+
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "diff-generatesql"</kbd> >
   <kbd>Install Plugin</kbd>
-  
+
 - Manually:
 
   Download the [latest release](https://github.com/haoqi123/data-diff-plugin-kt/releases/latest) and install it manually using
