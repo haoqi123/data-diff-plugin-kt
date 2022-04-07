@@ -2,9 +2,6 @@
 
 # data-diff-plugin-kt Changelog
 
-## v1.7 (2022/04/07)
-- fixed some bugs
-
 ## v1.6 (2022/04/06)
 - fixed some bugs
 
